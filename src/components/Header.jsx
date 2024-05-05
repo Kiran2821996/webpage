@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, Fragment } from 'react'
 import { Disclosure, Dialog, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { ShoppingCartIcon, TrashIcon } from '@heroicons/react/24/solid'
+
+import Cart from './cart/Cart'
 import Logo from '../assets/header_images/cmpLogo.png'
 
 const navigation = [
@@ -101,12 +103,7 @@ export default function Header() {
                       ))}
                     </div>
                   </div>
-                  <div onClick={() => setOpen(true)}
-                    className="relative right-cust cursor-pointer"
-                  >
-                    <ShoppingCartIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 hover:text-white" />
-                    <p className='absolute text-amber-500 font-black text-sm right-0 -top-2 lg:text-lg lg:-top-3 rounded-full lg:-right-1'>1</p>
-                  </div>
+                  <Cart/>
                 </div>
                 <div className="absolute inset-y-0 left-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0">
                   <div className="flex flex-shrink-0 items-center">
@@ -176,7 +173,7 @@ export default function Header() {
                           ORDER SUMMARY <ShoppingCartIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 " />
                         </Dialog.Title>
                         <div className="mt-2">
-                          <table class="table-auto w-full">
+                          <table className="table-auto w-full">
                             <thead>
                               <tr className='border-collapse border-b-2 border-b-solid border-gray-300'>
                                 <th className='text-left'>Course Name</th>

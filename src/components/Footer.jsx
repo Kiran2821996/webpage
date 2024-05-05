@@ -1,5 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
+import {HeartIcon,DocumentTextIcon} from '@heroicons/react/24/solid'
+
 import Youtube from "../assets/footer_images/video.png"
 import Facebook from "../assets/footer_images/facebook.png"
 import Twitter from "../assets/footer_images/twitter.png"
@@ -215,8 +217,8 @@ function Footer() {
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <Dialog.Title as="h3" className="text-base lg:text-2xl font-semibold leading-6 text-gray-900">
-                          THANK YOU!
+                        <Dialog.Title as="h3" className="flex items-center text-base lg:text-2xl font-semibold leading-6 text-gray-900">
+                          THANK YOU! <HeartIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 " />
                         </Dialog.Title>
                         <div className="mt-2">
                           <p className="text-md lg:text-xl text-gray-500">
@@ -267,12 +269,12 @@ function Footer() {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform h-1/4 lg:h-96 overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel className="relative transform h-1/4 lg:h-100 overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <Dialog.Title as="h3" className="text-base lg:text-2xl font-semibold leading-6 text-gray-900">
-                          PRIVACY AND POLICY
+                        <Dialog.Title as="h3" className="flex items-center text-base lg:text-2xl font-semibold leading-6 text-gray-900">
+                          PRIVACY AND POLICY <DocumentTextIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 " />
                         </Dialog.Title>
                         <div className="mt-2 overflow-scroll h-60">
                           <p className="text-md lg:text-xl text-gray-500">
@@ -285,7 +287,7 @@ function Footer() {
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 -m-t-2">
                     <button
                       type="button"
                       className="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-md font-semibold text-amber-500 shadow-sm hover:bg-amber-500 hover:text-white sm:ml-3 sm:w-auto"
@@ -326,12 +328,12 @@ function Footer() {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform h-1/4 lg:h-96 overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel className="relative transform h-1/4 lg:h-100 overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                       <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                        <Dialog.Title as="h3" className="text-base lg:text-2xl font-semibold leading-6 text-gray-900">
-                          TERMS AND CONDITION
+                        <Dialog.Title as="h3" className="flex items-center text-base lg:text-2xl font-semibold leading-6 text-gray-900">
+                          TERMS AND CONDITION <DocumentTextIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 " />
                         </Dialog.Title>
                         <div className="mt-2 overflow-scroll h-60">
                           <p className="text-md lg:text-xl text-gray-500">

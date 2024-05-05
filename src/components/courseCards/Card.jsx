@@ -1,21 +1,29 @@
 import React, { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../redux/cartSlice';
 
-const Card = ({ price, currency, videoId, title, strikePrice, percentage }) => {
+const Card = ({ price, currency, videoId, title, strikePrice, percentage, id }) => {
   const [open, setOpen] = useState(false)
 
   const cancelButtonRef = useRef(null)
+  const dispatch = useDispatch()
+
+  const cart = useSelector((state) => state.cart)
+
+  const isInCart = cart.some(item => item.id === id);
+
   return (
-    <div className="-mt-2 p-2">
+    <div className="-mt-2 p-2" id={id}>
       <div className="rounded-2xl bg-amber-500 pt-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:pt-16">
         <div className="px-8">
           <div>
-            <iframe width="100%" height="300px" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe width="100%" height="300px" src={`https://www.youtube.com/embed/${videoId}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
           </div>
           <p className=" text-2xl lg:text-4xl mt-3 font-semibold text-black">{title}</p>
           <p className="mt-6 flex items-baseline justify-center gap-x-2">
-            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-white line-through decoration-black">{strikePrice}</span>
-            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-gray-900">{price}</span>
+            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-white line-through decoration-black">₹{strikePrice}</span>
+            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-gray-900">₹{price}</span>
             <span className="text-sm lg:text-md font-semibold leading-6 tracking-wide text-gray-900">{percentage}% OFF</span>
           </p>
 
@@ -26,9 +34,16 @@ const Card = ({ price, currency, videoId, title, strikePrice, percentage }) => {
               READ MORE
             </button>
             <button
-              className="w-56 border-2 border-transparent text-center rounded-md hover:bg-white px-1 py-2 lg:px-3.5 lg:py-2.5  text-md lg:text-lg  font-semibold hover:text-gray-900 shadow-sm bg-black text-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              onClick={() =>
+                dispatch(addToCart({
+                  id, title, price
+                }))
+              }
+              className={`w-56 border-2 border-transparent text-center rounded-md px-1 py-2 lg:px-3.5 lg:py-2.5  text-md lg:text-lg  font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white ${
+                isInCart ? 'bg-white text-gray-900' : 'bg-black text-amber-500 hover:bg-gray-900 hover:text-white'
+              }`}
             >
-              ADD TO CART
+              {isInCart ? 'REMOVE FROM CART' : 'ADD TO CART'}
             </button>
           </div>
         </div>
