@@ -1,6 +1,7 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { HeartIcon, DocumentTextIcon } from '@heroicons/react/24/solid'
+import axios from 'axios'
 
 import Youtube from "../assets/footer_images/video.png"
 import Facebook from "../assets/footer_images/facebook.png"
@@ -32,7 +33,8 @@ function Footer() {
     setFormErrors({ ...formErrors, [name]: '' });
   };
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform validation
     let isValid = true;
@@ -69,14 +71,36 @@ function Footer() {
     } else {
       // Form is valid, submit the form or perform further actions
       // For example, you can make an API call here to submit the form data
-      console.log(formData);
-      setOpen(true);
-      setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        message: ''
-      });
+      try{
+      const config = {
+        url: "/contact/addcontact",
+        baseURL: "http://localhost:8000/api",
+        method: "post",
+        header: { "Content-type": "application/json" },
+        data: {
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          message: formData.message,
+        },
+      };
+
+      let response = await axios(config);
+
+      console.log(response, "response");
+      if (response.status === 200) {
+        // call emailjs
+        setOpen(true);
+        setFormData({
+          name: '',
+          phone: '',
+          email: '',
+          message: ''
+        });
+
+      }}catch (error) {
+        console.log("error", error);
+      }
     }
   };
 

@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../redux/cartSlice';
 
-const Card = ({ price, currency, videoId, title, strikePrice, percentage, id }) => {
+const Card = ({ price, currency, videoId, title, offerPrice, percentage, id }) => {
   const [open, setOpen] = useState(false)
 
   const cancelButtonRef = useRef(null)
@@ -22,7 +22,7 @@ const Card = ({ price, currency, videoId, title, strikePrice, percentage, id }) 
           </div>
           <p className=" text-2xl lg:text-4xl mt-3 font-semibold text-black">{title}</p>
           <p className="mt-6 flex items-baseline justify-center gap-x-2">
-            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-white line-through decoration-black">₹{strikePrice}</span>
+            <span className="text-3xl lg:text-5xl font-bold tracking-tight text-white line-through decoration-black">₹{offerPrice}</span>
             <span className="text-3xl lg:text-5xl font-bold tracking-tight text-gray-900">₹{price}</span>
             <span className="text-sm lg:text-md font-semibold leading-6 tracking-wide text-gray-900">{percentage}% OFF</span>
           </p>
