@@ -1,10 +1,10 @@
-import React, { useState, useRef, Fragment,useEffect } from 'react'
+import React, { useState, useRef, Fragment, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ShoppingCartIcon,CreditCardIcon ,DocumentTextIcon} from '@heroicons/react/24/solid'
+import { ShoppingCartIcon, CreditCardIcon, DocumentTextIcon } from '@heroicons/react/24/solid'
 
 import { clearLocalStorage } from '../../redux/cartSlice';
 
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import OrderSummary from './OrderSummary';
 
@@ -41,11 +41,46 @@ export default function Cart() {
         setOpenpd(true)
     }
 
-    const handlePayment = () => {
-        setOpen(false)
-        setOpenpd(false)
-        setOpenpg(true)
-    }
+    const [formData, setFormData] = useState({
+        email: '',
+    });
+
+    const [formErrors, setFormErrors] = useState({
+        email: '',
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        setFormErrors({ ...formErrors, [name]: '' });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Perform validation
+        let isValid = true;
+        const errors = {};
+
+        if (!formData.email) {
+            isValid = false;
+            errors.email = 'Email address is required';
+        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+            isValid = false;
+            errors.email = 'Please enter a valid email address';
+        }
+
+        if (!isValid) {
+            setFormErrors(errors);
+        } else {
+            console.log(formData);
+            setOpen(false);
+            setOpenpd(false);
+            setOpenpg(true);
+            setFormData({
+                email: '',
+            });
+        }
+    };
 
     window.onbeforeunload = function () {
         window.scrollTo(0, 0);
@@ -201,7 +236,7 @@ export default function Cart() {
                                         <div className="sm:flex sm:items-start">
                                             <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                                                 <Dialog.Title as="h3" className=" flex items-center text-base lg:text-2xl font-semibold leading-6 text-gray-900">
-                                                    PAYMENT <CreditCardIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 "/> 
+                                                    PAYMENT <CreditCardIcon className="w-6 h-5 md:w-12 md:h-11 lg:w-12 lg:h-11 text-amber-500 " />
                                                 </Dialog.Title>
                                                 <div className="mt-2">
                                                     <p className="text-md lg:text-xl text-gray-500">
@@ -211,37 +246,44 @@ export default function Cart() {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="flex p-6 gap-x-4">
-                                        <label htmlFor="email" className="sr-only">
-                                            Email address
-                                        </label>
-                                        <input
-                                            id="email"
-                                            name="email"
-                                            type="email"
-                                            autoComplete="email"
-                                            required
-                                            className="min-w-0 bg-grey-cust flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
-                                            placeholder="Enter your email"
-                                        />
-                                    </div>
-                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <button
-                                            type="button"
-                                            className="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-md font-semibold text-amber-500 shadow-sm hover:bg-amber-500 hover:text-white sm:ml-3 sm:w-auto"
-                                            onClick={() => handlePayment()}
-                                        >
-                                            SHARE PAYMENT LINK VIA MAIL
-                                        </button>
-                                        <button
-                                            type="button"
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                            onClick={() => setOpenpd(false)}
-                                            ref={cancelButtonRef}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
+                                    <form onSubmit={handleSubmit}>
+                                        <div className="mt-6 px-4 lg:px-6 gap-x-4">
+                                            <label htmlFor="email" className="sr-only">
+                                                Email address
+                                            </label>
+                                            <input
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                autoComplete="email"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                required
+                                                className="min-w-0 w-full bg-grey-cust flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-500 sm:text-sm sm:leading-6"
+                                                placeholder="Enter your email"
+                                            />
+                                            {formErrors.email && (
+                                                <p className="text-red-500">{formErrors.email}</p>
+                                            )}
+                                        </div>
+                                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                            <button
+                                                type="submit"
+                                                className="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-md font-semibold text-amber-500 shadow-sm hover:bg-amber-500 hover:text-white sm:ml-3 sm:w-auto"
+                                            >
+                                                SHARE PAYMENT LINK VIA MAIL
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-md font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                                onClick={() => setOpenpd(false)}
+                                                ref={cancelButtonRef}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
+
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>

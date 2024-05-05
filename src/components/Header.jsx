@@ -22,6 +22,7 @@ export default function Header() {
   const [openpd, setOpenpd] = useState(false)
   const [openpg, setOpenpg] = useState(false)
 
+
   const cancelButtonRef = useRef(null)
 
   useEffect(() => {
@@ -106,14 +107,17 @@ export default function Header() {
                   <Cart/>
                 </div>
                 <div className="absolute inset-y-0 left-0 flex items-center pr-2 sm:static sm:inset-auto sm:pr-0">
-                  <div className="flex flex-shrink-0 items-center">
-                    <img
-                      className='lg:w-24 lg:h-12 w-12 h-6'
-                      src={Logo}
-                      alt="Company-logo"
-                    />
-                    <h1 className='text-white text-xl lg:text-3xl subpixel-antialiased font-black mx-1.5'>ABHISHADGURU</h1>
-                  </div>
+                  <a href="#Banner">
+                    <div className="flex flex-shrink-0 items-center">
+                      <img
+                        className='lg:w-24 lg:h-12 w-12 h-6'
+                        src={Logo}
+                        alt="Company-logo"
+                      />
+                      <h1 className='text-white text-xl lg:text-3xl subpixel-antialiased font-black mx-1.5'>ABHISHADGURU</h1>
+                    </div>
+                  </a>
+                  
                 </div>
               </div>
             </div>
